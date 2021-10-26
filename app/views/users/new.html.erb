@@ -1,0 +1,48 @@
+<% if @user.errors.any? %>
+  <div>
+    <ul>
+    <% @user.errors.full_messages.each do |error| %>
+      <li><%= error %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<h1>Forms in different formats</h1>
+
+<!-- Form in HTML format -->
+<!-- <form action="/users" method="post" accept-charset="UTF-8">
+  <label for="username">Username:</label>
+  <input type="text" id="username" name="user[username]"><br><br>
+  <label for="email">Email:</label>
+  <input type="email" id="email" name="user[email]"><br><br>
+  <label for="password">Password:</label>
+  <input type="password" id="password" name="user[password]"><br><br>
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>"> 
+  <input type="submit" value="Submit">
+</form> -->
+
+<!-- Form using form_tag -->
+<%#= form_tag("/users", method: "post") do %>
+  <%#= label_tag(:username, "Username:") %>
+  <%#= text_field_tag(:username) %> 
+  <%#= label_tag(:email, "Email:") %>
+  <%#= email_field_tag(:email) %> 
+  <%#= label_tag(:password, "Password:") %>
+  <%#= password_field_tag(:password) %>
+  <%#= submit_tag("New User") %>
+<%# end %> 
+
+<!-- Form using form_with -->
+<%= form_with model: @user, local: true do |form| %>
+  <%= form.label :username, "New username:" %>
+  <%= form.text_field :username, value: "MyUser" %> <br><br>
+  <%= form.label :email, "Your email:" %>
+  <%= form.email_field :email, placeholder: "example@example.com"%> <br><br>
+  <%= form.label :password, "Your password:" %>
+  <%= form.password_field :password %> <br><br>
+  <%= form.submit %>
+<% end %>
+
+
+
